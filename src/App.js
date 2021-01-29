@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
+import React from "react";
+import "./App.css";
+import ContactsForm from "./components/Form/ContactsForm";
+import Contacts from "./components/Contacts/Contacts";
+import Filter from "./components/Filter/Filter";
+import { getVisibleContacts } from "./redux/selectors";
 
 function App() {
+  const contacts = useSelector(getVisibleContacts);
+
+  const checkExistingContacts = (name) => {
+    const isExistingContact =
+      contacts &&
+      !!contacts.find((contact) => {
+        return contact.name === name;
+      });
+
+    isExistingContact && alert(`${name} is already in your contacts`);
+
+    return !isExistingContact;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div>
+        <h1>Phonebook</h1>
+        <ContactsForm checkExistingContacts={checkExistingContacts} />
+        <Filter />
+      </div>
+      <div>
+        <h2>Contacts</h2>
+        <Contacts />
+      </div>
     </div>
   );
 }
