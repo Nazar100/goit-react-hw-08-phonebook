@@ -1,37 +1,40 @@
-import { useSelector } from "react-redux";
-import React from "react";
-import "./App.css";
-import ContactsForm from "./components/Form/ContactsForm";
-import Contacts from "./components/Contacts/Contacts";
-import Filter from "./components/Filter/Filter";
-import { getVisibleContacts } from "./redux/selectors";
+import React, { useEffect, Suspense, lazy } from 'react';
+import { useDispatch } from 'react-redux';
+import { Switch } from 'react-router-dom';
+import './App.css';
+import { Route } from 'react-router';
+import AppBar from './components/AppBar/AppBar';
+import operations from './redux/auth/operations';
+import PrivateRoute from './components/Routes/PrivateRoute';
+import PublicRoute from './components/Routes/PublicRoute';
+
+const Homepage = lazy(() => import('./views/Homepage/Homepage'));
+const Register = lazy(() => import('./views/Register/Register'));
+const Login = lazy(() => import('./views/Login/Login'));
 
 function App() {
-  const contacts = useSelector(getVisibleContacts);
+  const dispatch = useDispatch();
 
-  const checkExistingContacts = (name) => {
-    const isExistingContact =
-      contacts &&
-      !!contacts.find((contact) => {
-        return contact.name === name;
-      });
-
-    isExistingContact && alert(`${name} is already in your contacts`);
-
-    return !isExistingContact;
-  };
+  useEffect(() => {
+    dispatch(operations.fetchCurrentUser());
+  }, [dispatch]);
 
   return (
-    <div className="container">
-      <div>
-        <h1>Phonebook</h1>
-        <ContactsForm checkExistingContacts={checkExistingContacts} />
-        <Filter />
-      </div>
-      <div>
-        <h2>Contacts</h2>
-        <Contacts />
-      </div>
+    <div>
+      <AppBar />
+      <Switch>
+        <Suspense fallback={<p>loading</p>}>
+          <PrivateRoute>
+            <Route path="/contacts" exact component={Homepage} />
+          </PrivateRoute>
+          <PublicRoute restricted>
+            <Route path="/register" exact component={Register} />
+          </PublicRoute>
+          <PublicRoute restricted>
+            <Route path="/login" exact component={Login} />
+          </PublicRoute>
+        </Suspense>
+      </Switch>
     </div>
   );
 }

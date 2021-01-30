@@ -1,0 +1,36 @@
+.form {
+  background: rgb(244, 253, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(244, 253, 255, 1) 0%,
+    rgba(217, 241, 239, 1) 39%,
+    rgba(233, 233, 238, 1) 95%
+  );
+  width: 270px;
+  align-self: center;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  padding: 20px;
+  justify-content: center;
+  /* height: 300px; */
+
+  -webkit-box-shadow: 5px 5px 15px 5px #ff8080, -9px 5px 15px 5px #ffe488,
+    -7px -5px 15px 5px #8cff85, 12px -5px 15px 5px #80c7ff,
+    12px 10px 15px 7px #e488ff, -10px 10px 15px 7px #ff616b,
+    -10px -7px 27px 1px #8e5cff, -3px 6px 13px -15px rgba(0, 0, 0, 0);
+  box-shadow: 5px 5px 15px 5px #ff8080, -9px 5px 15px 5px #ffe488,
+    -7px -5px 15px 5px #8cff85, 12px -5px 15px 5px #80c7ff,
+    12px 10px 15px 7px #e488ff, -10px 10px 15px 7px #ff616b,
+    -10px -7px 27px 1px #8e5cff, -3px 6px 13px -15px rgba(0, 0, 0, 0);
+}
+.input {
+  width: 250px;
+  margin-bottom: 50px;
+}
+.button {
+  width: 200px;
+  display: inline-block;
+  margin-bottom: 20px;
+}

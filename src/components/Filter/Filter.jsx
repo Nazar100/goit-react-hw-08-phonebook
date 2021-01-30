@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from "react-redux";
-import { getFilter } from "../../redux/selectors";
-import { changeFilter } from "../../redux/actions";
-import operations from "../../redux/operations";
+import { useSelector, useDispatch } from 'react-redux';
+import { getFilter } from '../../redux/contacts/selectors';
+import { changeFilter } from '../../redux/contacts/actions';
+import TextField from '@material-ui/core/TextField';
 
-import s from "./Filter.module.css";
+import './styles.css';
 
 export default function Filter() {
   const value = useSelector(getFilter);
@@ -11,12 +11,14 @@ export default function Filter() {
 
   return (
     <label>
-      Filter
-      <input
-        className={s.input}
+      <TextField
+        className="filter"
+        id="outlined-basic"
+        label="Filter"
+        variant="outlined"
         type="text"
         value={value}
-        onChange={(e) => {
+        onChange={e => {
           return dispatch(changeFilter(e.target.value));
         }}
       />
