@@ -7,6 +7,7 @@ import AppBar from './components/AppBar/AppBar';
 import operations from './redux/auth/operations';
 import PrivateRoute from './components/Routes/PrivateRoute';
 import PublicRoute from './components/Routes/PublicRoute';
+import Loader from 'react-loader-spinner';
 
 const Homepage = lazy(() => import('./views/Homepage/Homepage'));
 const Register = lazy(() => import('./views/Register/Register'));
@@ -23,7 +24,11 @@ function App() {
     <div>
       <AppBar />
       <Switch>
-        <Suspense fallback={<p>loading</p>}>
+        <Suspense
+          fallback={
+            <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+          }
+        >
           <PrivateRoute>
             <Route path="/contacts" exact component={Homepage} />
           </PrivateRoute>
