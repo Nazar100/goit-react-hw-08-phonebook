@@ -20,7 +20,6 @@ const addContact = createAsyncThunk(
   async (contactItem, { rejectWithValue }) => {
     const contact = {
       ...contactItem,
-      favourite: false,
     };
     try {
       const { data } = await axios.post('/contacts', contact);
